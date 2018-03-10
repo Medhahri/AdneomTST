@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AdneomDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coffee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+          <Property Name="Sucre" Type="int" Nullable="false" />
+          <Property Name="UseMug" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeCoffee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TypeDescription" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Coffee_ToTypeCoffee">
+          <End Role="TypeCoffee" Type="Self.TypeCoffee" Multiplicity="1" />
+          <End Role="Coffee" Type="Self.Coffee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeCoffee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Coffee">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdneomDBModelStoreContainer">
+          <EntitySet Name="Coffee" EntityType="Self.Coffee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeCoffee" EntityType="Self.TypeCoffee" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Coffee_ToTypeCoffee" Association="Self.FK_Coffee_ToTypeCoffee">
+            <End Role="TypeCoffee" EntitySet="TypeCoffee" />
+            <End Role="Coffee" EntitySet="Coffee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdneomDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coffee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <Property Name="Sucre" Type="Int32" Nullable="false" />
+          <Property Name="UseMug" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TypeCoffee" Relationship="Self.FK_Coffee_ToTypeCoffee" FromRole="Coffee" ToRole="TypeCoffee" />
+        </EntityType>
+        <EntityType Name="TypeCoffee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="TypeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Coffee" Relationship="Self.FK_Coffee_ToTypeCoffee" FromRole="TypeCoffee" ToRole="Coffee" />
+        </EntityType>
+        <Association Name="FK_Coffee_ToTypeCoffee">
+          <End Role="TypeCoffee" Type="Self.TypeCoffee" Multiplicity="1" />
+          <End Role="Coffee" Type="Self.Coffee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeCoffee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Coffee">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AdneomDBEntities1" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Coffee" EntityType="Self.Coffee" />
+          <EntitySet Name="TypeCoffee" EntityType="Self.TypeCoffee" />
+          <AssociationSet Name="FK_Coffee_ToTypeCoffee" Association="Self.FK_Coffee_ToTypeCoffee">
+            <End Role="TypeCoffee" EntitySet="TypeCoffee" />
+            <End Role="Coffee" EntitySet="Coffee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdneomDBModelStoreContainer" CdmEntityContainer="AdneomDBEntities1">
+          <EntitySetMapping Name="Coffee">
+            <EntityTypeMapping TypeName="AdneomDBModel.Coffee">
+              <MappingFragment StoreEntitySet="Coffee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Sucre" ColumnName="Sucre" />
+                <ScalarProperty Name="UseMug" ColumnName="UseMug" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeCoffee">
+            <EntityTypeMapping TypeName="AdneomDBModel.TypeCoffee">
+              <MappingFragment StoreEntitySet="TypeCoffee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeDescription" ColumnName="TypeDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,45 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Dernier choix</h2>
+        </div>
+        <table class="table">
+            <tr><td>Type</td><td data-bind="text: Caffee().TypeCaffee"></td></tr>
+            <tr><td>Sucre</td><td data-bind="text: Caffee().Sucre"></td></tr>
+            <tr><td>Mug</td><td><input type="checkbox" disabled="disabled" data-bind="checked: Caffee().UseMug" /></td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Ajouter un café</h2>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" data-bind="submit: addCaffee">
+                <div class="form-group">
+                    <label for="inputAuthor" class="col-sm-2 control-label">Type</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" data-bind="options:TypeCaffees, optionsText: 'TypeDescription', value: newCaffee.TypeCaffee, optionsCaption: 'Choisir un type...'"></select>
+                    </div>
+                </div>
+                <div class="form-group" data-bind="with: newCaffee">
+                    <label for="inputSucre" class="col-sm-2 control-label">Sucre</label>
+                    <div class="col-sm-3">
+                        <input type="number" min="0" class="form-control" id="inputSucre" data-bind="value: Sucre" placeholder=" 2" />
+                    </div>
+                    <label for="inputMug" class="col-sm-offset-1 col-sm-2 control-label">Mug</label>
+                    <div class="col-sm-2">
+                        <input type="checkbox" class="form-control" id="inputMug" checked="checked" data-bind="checked: UseMug" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>
